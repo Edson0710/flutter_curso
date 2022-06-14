@@ -28,6 +28,22 @@ class _MyAppState extends State<MyApp> {
       getPages: [
         GetPage(name: '/', page: () => const LoginPage()),
       ],
+      theme: ThemeData(
+        primaryColor: Colors.amber,
+        colorScheme: ColorScheme(
+          brightness: Brightness.light,
+          primary: Colors.amber,
+          secondary: Colors.amberAccent,
+          onPrimary: Colors.grey,
+          onSecondary: Colors.grey,
+          onBackground: Colors.grey,
+          surface: Colors.grey,
+          onSurface: Colors.grey,
+          error: Colors.grey,
+          onError: Colors.grey, 
+          background: Colors.grey,
+        ),
+      ),
       navigatorKey: Get.key,
     );
   }

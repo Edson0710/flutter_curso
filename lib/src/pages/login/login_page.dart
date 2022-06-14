@@ -12,10 +12,13 @@ class LoginPage extends StatelessWidget {
         height: 50,
         child: _textDontHaveAccount(),
       ),
-      body: Stack( // POSICIONAR ELEMENTOS UNO ENCIMA DEL OTRO
+      body: Stack(
+        // POSICIONAR ELEMENTOS UNO ENCIMA DEL OTRO
         children: [
           _backgroundCover(context),
-          Column( // POSICIONAR ELEMENTOS UNO DEBAJO DEL OTRO (VERTICAL)
+          _boxForm(context),
+          Column(
+            // POSICIONAR ELEMENTOS UNO DEBAJO DEL OTRO (VERTICAL)
             children: [
               _imageCover(),
               _textAppName(),
@@ -26,15 +29,15 @@ class LoginPage extends StatelessWidget {
     );
   }
 
-  Widget _backgroundCover(BuildContext context){
+  Widget _backgroundCover(BuildContext context) {
     return Container(
       width: double.infinity, //TODA LA PANTALLA
-      height: MediaQuery.of(context).size.height * 0.4,
+      height: MediaQuery.of(context).size.height * 0.42,
       color: Colors.amber,
     );
   }
 
-  Widget _textAppName(){
+  Widget _textAppName() {
     return Text(
       'DELIVERY MYSQL',
       style: TextStyle(
@@ -45,8 +48,92 @@ class LoginPage extends StatelessWidget {
     );
   }
 
-  Widget _textDontHaveAccount(){
-    return Row( // UBICAR ELEMENTOS UNO AL LADO DEL OTRO (HORIZONTAL)
+  Widget _boxForm(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.only(
+          top: MediaQuery.of(context).size.height * 0.35, left: 50, right: 50),
+      height: MediaQuery.of(context).size.height * 0.45,
+      decoration: BoxDecoration(color: Colors.white, boxShadow: <BoxShadow>[
+        BoxShadow(
+          color: Colors.black54,
+          blurRadius: 15,
+          offset: Offset(0, 0.75),
+        )
+      ]),
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            _textYourInfo(),
+            _textFieldEmail(),
+            _textFieldPassword(),
+            _buttonLogin()
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _textFieldEmail() {
+    return Container(
+      margin: EdgeInsets.symmetric(horizontal: 40),
+      child: TextField(
+        keyboardType: TextInputType.emailAddress,
+        decoration: InputDecoration(
+          hintText: 'Correo electrónico',
+          prefixIcon: Icon(Icons.email),
+        ),
+      ),
+    );
+  }
+
+  Widget _textFieldPassword() {
+    return Container(
+      margin: EdgeInsets.symmetric(horizontal: 40),
+      child: TextField(
+        keyboardType: TextInputType.text,
+        obscureText: true,
+        decoration: InputDecoration(
+          hintText: 'Contraseña',
+          prefixIcon: Icon(Icons.lock),
+        ),
+      ),
+    );
+  }
+
+  Widget _buttonLogin() {
+    return Container(
+      width: double.infinity,
+      margin: EdgeInsets.symmetric(horizontal: 40, vertical: 40),
+      child: ElevatedButton(
+        onPressed: () {},
+        style: ElevatedButton.styleFrom(
+          padding: EdgeInsets.symmetric(vertical: 15)
+        ),
+        child: Text(
+          'LOGIN',
+          style: TextStyle(
+            color: Colors.black,
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _textYourInfo() {
+    return Container(
+      margin: EdgeInsets.only(top: 40, bottom: 45),
+      child: Text(
+        'INGRESA ESTA INFORMACIÓN',
+        style: TextStyle(
+          color: Colors.black,
+        ),
+      ),
+  );
+  }
+
+  Widget _textDontHaveAccount() {
+    return Row(
+      // UBICAR ELEMENTOS UNO AL LADO DEL OTRO (HORIZONTAL)
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text(
@@ -58,7 +145,8 @@ class LoginPage extends StatelessWidget {
         ),
         SizedBox(width: 7), // SEPARAR
         Text(
-          'Registrate Aquí',style: TextStyle(
+          'Registrate Aquí',
+          style: TextStyle(
             color: Colors.amber,
             fontWeight: FontWeight.bold,
             fontSize: 17,
@@ -69,7 +157,7 @@ class LoginPage extends StatelessWidget {
   }
 
   // PRIVATE WIDGET
-  Widget _imageCover(){
+  Widget _imageCover() {
     return SafeArea(
       child: Container(
         margin: EdgeInsets.only(top: 20, bottom: 15),
