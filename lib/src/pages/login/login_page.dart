@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 
 class LoginPage extends StatelessWidget {
 
-  LoginController controlller = Get.put(LoginController());
+  LoginController controller = Get.put(LoginController());
 
   @override
   Widget build(BuildContext context) {
@@ -79,6 +79,7 @@ class LoginPage extends StatelessWidget {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 40),
       child: TextField(
+        controller: controller.emailController,
         keyboardType: TextInputType.emailAddress,
         decoration: InputDecoration(
           hintText: 'Correo electrónico',
@@ -92,6 +93,7 @@ class LoginPage extends StatelessWidget {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 40),
       child: TextField(
+        controller: controller.passwordController,
         keyboardType: TextInputType.text,
         obscureText: true,
         decoration: InputDecoration(
@@ -107,7 +109,7 @@ class LoginPage extends StatelessWidget {
       width: double.infinity,
       margin: EdgeInsets.symmetric(horizontal: 40, vertical: 40),
       child: ElevatedButton(
-        onPressed: () {},
+        onPressed: () => controller.login(),
         style: ElevatedButton.styleFrom(
           padding: EdgeInsets.symmetric(vertical: 15)
         ),
@@ -147,7 +149,7 @@ class LoginPage extends StatelessWidget {
         ),
         SizedBox(width: 7), // SEPARAR
         GestureDetector(
-          onTap: () => controlller.goToRegisterPage(),
+          onTap: () => controller.goToRegisterPage(),
           child: Text(
             'Registrate Aquí',
             style: TextStyle(
