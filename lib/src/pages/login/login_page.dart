@@ -1,9 +1,11 @@
 import 'package:flutter/src/widgets/framework.dart';
-
 import 'package:flutter/material.dart';
+import 'package:flutter_curso/src/pages/login/login_controller.dart';
+import 'package:get/get.dart';
 
 class LoginPage extends StatelessWidget {
-  const LoginPage({super.key});
+
+  LoginController controlller = Get.put(LoginController());
 
   @override
   Widget build(BuildContext context) {
@@ -144,12 +146,15 @@ class LoginPage extends StatelessWidget {
           ),
         ),
         SizedBox(width: 7), // SEPARAR
-        Text(
-          'Registrate Aquí',
-          style: TextStyle(
-            color: Colors.amber,
-            fontWeight: FontWeight.bold,
-            fontSize: 17,
+        GestureDetector(
+          onTap: () => controlller.goToRegisterPage(),
+          child: Text(
+            'Registrate Aquí',
+            style: TextStyle(
+              color: Colors.amber,
+              fontWeight: FontWeight.bold,
+              fontSize: 17,
+            ),
           ),
         ),
       ],
