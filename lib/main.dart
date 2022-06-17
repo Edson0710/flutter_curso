@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_curso/src/models/user.dart';
+import 'package:flutter_curso/src/pages/home/home_page.dart';
 import 'package:flutter_curso/src/pages/login/login_page.dart';
 import 'package:flutter_curso/src/pages/register/register_page.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
-void main() {
+User userSession = User.fromJson(GetStorage().read('user') ?? {});
+
+void main() async {
+  // MANEJO DE STORAGE
+  await GetStorage.init();
   runApp(const MyApp());
 }
 
@@ -25,11 +32,11 @@ class _MyAppState extends State<MyApp> {
     return GetMaterialApp(
       title: 'Delivery',
       debugShowCheckedModeBanner: false,
-      initialRoute: '/',
+      initialRoute: userSession.id != null ? '/home' : '/',
       getPages: [
         GetPage(name: '/', page: () => LoginPage()),
         GetPage(name: '/register', page: () => RegisterPage()),
-        
+        GetPage(name: '/home', page: () => HomePage()),
       ],
       theme: ThemeData(
         primaryColor: Colors.amber,
@@ -43,7 +50,7 @@ class _MyAppState extends State<MyApp> {
           surface: Colors.grey,
           onSurface: Colors.grey,
           error: Colors.grey,
-          onError: Colors.grey, 
+          onError: Colors.grey,
           background: Colors.grey,
         ),
       ),
