@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_curso/src/models/response_api.dart';
 import 'package:flutter_curso/src/models/user.dart';
@@ -8,6 +7,7 @@ import 'package:flutter_curso/src/providers/users_provider.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:sn_progress_dialog/sn_progress_dialog.dart';
 
 class RegisterController extends GetxController {
   TextEditingController emailController = TextEditingController();
@@ -22,7 +22,7 @@ class RegisterController extends GetxController {
   ImagePicker picker = ImagePicker();
   File? imageFile;
 
-  void register() async {
+  void register(BuildContext context) async {
     String email = emailController.text.trim();
     String name = nameController.text;
     String lastName = lastNameController.text;
@@ -31,6 +31,9 @@ class RegisterController extends GetxController {
     String confirmPassword = confirmPasswordController.text.trim();
 
     if (isValidForm(email, name, lastName, phone, password, confirmPassword)) {
+      ProgressDialog progressDialog = ProgressDialog(context: context);
+      progressDialog.show(max: 100, msg: 'Registrando...');
+
       User user = User(
         email: email,
         name: name,
@@ -41,12 +44,12 @@ class RegisterController extends GetxController {
 
       Stream stream = await usersProvider.createWithImage(user, imageFile!);
       stream.listen((res) {
+        progressDialog.close();
         ResponseApi responseApi = ResponseApi.fromJson(json.decode(res));
-        if(responseApi.success == true){
+        if (responseApi.success == true) {
           GetStorage().write('user', responseApi.data); //  DATOS DEL USUARIO
           goToHomePage();
-        }
-        else{
+        } else {
           Get.snackbar('Error', responseApi.message ?? '');
         }
       });
